@@ -1,0 +1,31 @@
+euler_one:
+  procedure(parm) options(main);
+	declare
+	  s_ret float binary;
+	begin;
+    s_ret = summation();
+		put list(s_ret);
+	end;
+
+  summation:
+	  procedure() returns(float binary);
+		declare
+		  i fixed;
+		  s float binary;
+			begin;
+			  s = 0;
+		    do i = 1 to 999;
+		      if mod(i, 3) = 0 then do;
+					  s = s + i;
+					end;
+					else do;
+					  if mod(i, 5) = 0 then do;
+					    s = s + i;
+						end;
+					end;
+		    end;
+				put list(s);
+				return((s));
+			end;
+  end summation;
+end euler_one;

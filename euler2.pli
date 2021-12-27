@@ -1,0 +1,31 @@
+recursive_fibonacci:
+  procedure options(main);
+	declare
+	  i float binary;
+		ret float binary;
+		j fixed binary;
+		s float binary;
+  do;
+    j = 0;
+		ret = 0;
+		i = 0;
+		s = 0;
+	  do while(ret < 4000000);
+		  ret = fibonacci(i);
+			if mod(ret, 2) = 0 then do;
+			s = s + ret;
+			end;
+			i = i + 1;
+	  end;
+		put skip list('sum fib of even', s);
+	end;
+
+	fibonacci:
+	  procedure(i) returns(float binary) recursive;
+		declare
+		  i float binary;
+		if i = 0 then return(1);
+		if i = 1 then return(2);
+		return (fibonacci(i-1) + fibonacci(i-2));
+	end fibonacci;
+end recursive_fibonacci;
