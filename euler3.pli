@@ -1,0 +1,59 @@
+prime_factor:
+  procedure options(main);
+	declare
+    input_data file;
+    factor_num float binary;
+
+	do;
+		open file(input_data) title('euler3_input.txt') stream;
+		get file(input_data) edit(factor_num)(A);
+		close file(input_data);
+		put('largest prime number', find_largest_prime(factor_num));
+	end;
+
+  find_largest_prime:
+    procedure(i) returns(float binary);
+	  declare
+	    i float binary;
+			curr_large_prime float binary;
+      prime_check float binary;
+		do;
+      prime_check = 2;
+			curr_large_prime = prime_check;
+			do while(i > 1);
+			  if check_if_prime(prime_check) = 0 then do;
+				  do while(mod(i, prime_check) = 0);
+					  i = i / prime_check;
+					end;
+					curr_large_prime = prime_check;
+					prime_check = prime_check + 1;
+				end;
+				else do;
+				  prime_check = prime_check + 1;
+				end;
+			end;
+			return(curr_large_prime);
+		end;
+ 	end find_largest_prime;
+
+  check_if_prime:
+	  procedure(num) returns(fixed binary)
+	  declare
+		  num float binary;
+			is_prime fixed binary;
+			test float binary;
+
+		do;
+		  is_prime = 1;
+			test = 2;
+		  do while(is_prime = 1);
+			  if mod(test, num) = 0 then do;
+				  is_prime = 0;
+				end;
+				test = test + 1;
+			end;
+			return(is_prime);
+		end;
+  end check_if_prime;
+
+end prime_factor;
